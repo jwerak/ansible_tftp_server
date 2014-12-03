@@ -1,0 +1,31 @@
+---
+# Loading vars
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Install packages
+- name: Install the required  packages in Redhat derivatives
+  yum: name={{ item }} state=installed
+  with_items: tftp_server_packages
+  when: ansible_os_family == 'RedHat'
+
+- name: Install the required packages in Debian derivatives
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items: tftp_server_packages
+  when: ansible_os_family == 'Debian'
+
+# Configure server
+- name: Generate tftp config in xinetd
+  template: src=tftp.j2 dest="{{ tftp_xinet_config_path }}"
+  notify:
+    - restart xinetd
+
+# serve some files
+- name: Copy files to be served via tftp
+  copy: src="{{ item }}" dest="{{ tftp_serve_dir }}/{{ item }}"
+  with_items: tftp_serve_files
+
+# start xinetd
+- name: Start and enable xinetd
+  service: name="{{ xinetd_service_name }}" state=started enabled=yes
+

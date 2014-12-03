@@ -1,0 +1,4 @@
+---
+tftp_xinet_config_path: "{{ xined_conf_path }}/tftp"
+tftp_serve_dir: '/var/lib/tftpboot'
+tftp_serve_files: []

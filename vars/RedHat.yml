@@ -1,0 +1,7 @@
+---
+xined_conf_path: '/etc/xinetd.d'
+tftp_server_packages:
+        - tftp-server
+        - xinetd
+        - syslinux
+xinetd_service_name: 'xinetd'
