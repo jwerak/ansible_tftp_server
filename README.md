@@ -12,12 +12,8 @@ in the metadata file.
 Role Variables
 --------------
 
-The variables that can be passed to this role and a brief description about
-them are as follows. These are all based on the configuration variales of the
-DHCP server configuration.
-
-    # Basic configuration information
-    tftp_serve_files: array of files in files dir that should be served by tftp server
+## Basic configuration information
+tftp_serve_files: array of files in files dir that should be served by tftp server
 
 
 
